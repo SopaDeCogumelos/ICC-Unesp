@@ -39,17 +39,17 @@ int main(void) {
 		error = scanf("%d",&input);
 		printf(LIMPA);
 		
-		if (input == 0) exit(0);
-		if (input == 1) error = mainHelloWorld();
-		if (input == 2) error = prog2main();
-		if (input == 3) error = prog3main();
-		if (input == 4) error = prog4main();
-		if (input == 5) error = prog5main();
-		if (input == 6) error = prog6main();
-		if (input == 7) error = senhaMain();
-		if (input == 8) error = med10main();
-		if (input == 9) error = stringCompare();
-		if (input == 10) error = tarefasMain();
+		if (input == 0) 		exit(0);
+		if (input == 1) 	error = mainHelloWorld();
+		if (input == 2) 	error = prog2main();
+		if (input == 3) 	error = prog3main();
+		if (input == 4) 	error = prog4main();
+		if (input == 5) 	error = prog5main();
+		if (input == 6) 	error = prog6main();
+		if (input == 7) 	error = senhaMain();
+		if (input == 8) 	error = med10main();
+		if (input == 9) 	error = stringCompare();
+		if (input == 10) 	error = tarefasMain();
 
 		printf("\nPressione qualquer tecla para continuar...\n");
 		pError = gets(&input); pError = gets(&input);

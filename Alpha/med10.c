@@ -9,7 +9,7 @@ int med10main(){
 	for (int i = 0; i < 3; i++) {
 		scanf("%d", &num[i]);
 		if(num[i]<0 || num[i]>10){
-			printf("Número invalido!\n");
+			printf("Número inválido!\n");
 			return 0;
 		}
 	}
