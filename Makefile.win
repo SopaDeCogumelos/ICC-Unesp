@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o helloWorld.o prog2.o prog3.o prog4.o prog5.o prog6.o senha.o med10.o stringCompare.o terefas.o
-LINKOBJ  = main.o helloWorld.o prog2.o prog3.o prog4.o prog5.o prog6.o senha.o med10.o stringCompare.o terefas.o
+OBJ      = Source/helloWorld.o Source/main.o Source/med10.o Source/prog2.o Source/prog3.o Source/prog4.o Source/prog5.o Source/prog6.o Source/senha.o Source/stringCompare.o Source/terefas.o
+LINKOBJ  = Source/helloWorld.o Source/main.o Source/med10.o Source/prog2.o Source/prog3.o Source/prog4.o Source/prog5.o Source/prog6.o Source/senha.o Source/stringCompare.o Source/terefas.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -24,35 +24,35 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.c
-	$(CC) -c main.c -o main.o $(CFLAGS)
+Source/helloWorld.o: Source/helloWorld.c
+	$(CC) -c Source/helloWorld.c -o Source/helloWorld.o $(CFLAGS)
 
-helloWorld.o: helloWorld.c
-	$(CC) -c helloWorld.c -o helloWorld.o $(CFLAGS)
+Source/main.o: Source/main.c
+	$(CC) -c Source/main.c -o Source/main.o $(CFLAGS)
 
-prog2.o: prog2.c
-	$(CC) -c prog2.c -o prog2.o $(CFLAGS)
+Source/med10.o: Source/med10.c
+	$(CC) -c Source/med10.c -o Source/med10.o $(CFLAGS)
 
-prog3.o: prog3.c
-	$(CC) -c prog3.c -o prog3.o $(CFLAGS)
+Source/prog2.o: Source/prog2.c
+	$(CC) -c Source/prog2.c -o Source/prog2.o $(CFLAGS)
 
-prog4.o: prog4.c
-	$(CC) -c prog4.c -o prog4.o $(CFLAGS)
+Source/prog3.o: Source/prog3.c
+	$(CC) -c Source/prog3.c -o Source/prog3.o $(CFLAGS)
 
-prog5.o: prog5.c
-	$(CC) -c prog5.c -o prog5.o $(CFLAGS)
+Source/prog4.o: Source/prog4.c
+	$(CC) -c Source/prog4.c -o Source/prog4.o $(CFLAGS)
 
-prog6.o: prog6.c
-	$(CC) -c prog6.c -o prog6.o $(CFLAGS)
+Source/prog5.o: Source/prog5.c
+	$(CC) -c Source/prog5.c -o Source/prog5.o $(CFLAGS)
 
-senha.o: senha.c
-	$(CC) -c senha.c -o senha.o $(CFLAGS)
+Source/prog6.o: Source/prog6.c
+	$(CC) -c Source/prog6.c -o Source/prog6.o $(CFLAGS)
 
-med10.o: med10.c
-	$(CC) -c med10.c -o med10.o $(CFLAGS)
+Source/senha.o: Source/senha.c
+	$(CC) -c Source/senha.c -o Source/senha.o $(CFLAGS)
 
-stringCompare.o: stringCompare.c
-	$(CC) -c stringCompare.c -o stringCompare.o $(CFLAGS)
+Source/stringCompare.o: Source/stringCompare.c
+	$(CC) -c Source/stringCompare.c -o Source/stringCompare.o $(CFLAGS)
 
-terefas.o: terefas.c
-	$(CC) -c terefas.c -o terefas.o $(CFLAGS)
+Source/terefas.o: Source/terefas.c
+	$(CC) -c Source/terefas.c -o Source/terefas.o $(CFLAGS)
