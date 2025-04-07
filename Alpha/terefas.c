@@ -38,8 +38,8 @@ int sqrt5(void){
 	printf("Insira um número:\n");
 	scanf("%f", &x);
 	
-	printf("A raiz quinta de %f ? %.2f\n", x, pow(x, 0.2));
-	/* 			A raiz quinta a calculada aqui ^^^^^^ */
+	printf("A raiz quinta de %f é %.2f\n", x, pow(x, 0.2));
+	/* 		A raiz quinta a calculada aqui ^^^^^^ */
 	
 	return 0;
 }
@@ -103,7 +103,7 @@ int orgOrdCres(void){
 	/* FIM Loop lagico para reorganizar a sequencia numerica */
 	
 	/* Exibe ao usuario a sequencia reorganizada */
-	printf("\n\nA sequencia re-organizada ?:\n");
+	printf("\n\nA sequencia re-organizada é:\n");
 	for (int i = 0; i < 3; i++)
 		printf("%f ", x[i]);
 	printf("\n");
