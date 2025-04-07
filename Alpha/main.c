@@ -1,7 +1,42 @@
 #include "main.h"
 
-/* Menu principal de Selção de programas */
+int modoLSD(void){
+	while (1){
+		for (int i=0; i < 256; i++){
+			printf(BG"%dm\n", i);
+			/*printf(FG"%dm", i);
+			printf("\n"
+				"                          __    _" 					"\n"                                   
+				"                    _wr^^        ^-q__"    				"\n"                         
+				"                 _dP                 9m_"  				"\n"
+				"               _#P                     9#_"         			"\n"               
+				"              d#@                       9#m"           		"\n"            
+				"             d##                         ###"        			"\n"              
+				"            J###                         ###L"      			"\n"               
+				"            {###K                       J###K"     			"\n"                
+				"            ]####K      ___aaa___      J####F"    			"\n"                 
+				"        __gmM######_  w#P^^   ^^9#m  _d#####Mmw__"  			"\n"               
+				"     _g##############mZ_         __g##############m_"    		"\n"           
+				"   _d####M@PPPP@@M#######Mmp gm#########@@PPP9@M####m_"       		"\n"     
+				"  a###^^          ,Z^#####@^ '######^|g          ^^M##m"    		"\n"       
+				" J#@^             0L  ^*##     ##@^  J#              *#K"     		"\n"     
+				" #^               `#    ^_gmwgm_~    dF               `#_" 		"\n"        
+				"7F                 ^#_   ]#####F   _dK                 JE"     	"\n"    
+				"]                    *m__ ##### __g@^                   F"      	"\n"   
+				"                       ^PJ#####LP^                       "     	"\n"   
+				" `                       0######_                      ' "   		"\n"      
+				"                       _0########_                       "    		"\n"       
+				"     .               _d#####^#####m__              ,     "   		"\n"     
+				"      ^*w_________am#####P^   ~9#####mw_________w*^      "		"\n"           
+				"          ^^9@#####@M^^           ^^P@#####@M^^^	"		"\n"
+			);*/
+		}
+	}
+	printf(RESET LIMPA);
+	return 0;
+}
 
+/* Menu principal de Selção de programas */
 int main(void) {
 	/* Define variaveis de Debug	
 	*	error 	-> variavel que recebe o return das chamadas de função
@@ -30,6 +65,9 @@ int main(void) {
 			" 8- Média - 		Calcula média de 3 números"	"\n"
 			" 9- Compara String - 	Compara o tamanho de strings"	"\n"
 			" 10-Tarefas - 		Bloco de Tarefas"		"\n"
+			" 11-Média de números Positivos"			"\n"
+			" 12-Imprime uma sequêcia a partir de N"		"\n"
+			" 13-Modo LSD"						"\n"
 			" 0-Exit"						"\n"
 		CAZUL	"===================================================="	"\n"
 		RESET);
@@ -50,6 +88,9 @@ int main(void) {
 		if (input == 8) 	error = med10main();
 		if (input == 9) 	error = stringCompare();
 		if (input == 10) 	error = tarefasMain();
+		if (input == 11) 	error = mediaLoopMain();
+		if (input == 12) 	error = sequenciaN();
+		if (input == 13) 	error = modoLSD();
 
 		printf("\nPressione qualquer tecla para continuar...\n");
 		pError = gets(&input); pError = gets(&input);

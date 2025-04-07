@@ -19,5 +19,7 @@
 #include "med10.h"
 #include "stringCompare.h"
 #include "tarefas.h"
+#include "mediaLoop.h"
+#include "sequenciaN.h"
 
 #endif
