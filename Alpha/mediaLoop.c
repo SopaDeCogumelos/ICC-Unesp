@@ -8,10 +8,10 @@ int mediaLoopMain(void){
 		count = 0, 
 		sum = 0;
 	printf("Digite uma sequência de números inteiros:\n");
-	for(count;; count++){
+	while(!(input<0)){
 		scanf("%f", &input);
-		if (input < 0) break;
 		sum += input;
+		count++;
 	}
 	if (count<=0){
 		printf("Sequência Inválida!\n");
