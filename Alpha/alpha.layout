@@ -14,9 +14,9 @@ CursorRow=1
 TopLine=1
 LeftChar=1
 [Editor_0]
-CursorCol=60
-CursorRow=95
-TopLine=68
+CursorCol=56
+CursorRow=64
+TopLine=37
 LeftChar=1
 [Editor_20]
 CursorCol=20
@@ -24,9 +24,9 @@ CursorRow=7
 TopLine=1
 LeftChar=1
 [Editor_21]
-CursorCol=3
-CursorRow=102
-TopLine=91
+CursorCol=43
+CursorRow=172
+TopLine=155
 LeftChar=1
 [Editor_22]
 CursorCol=16
@@ -49,8 +49,8 @@ CursorRow=4
 TopLine=1
 LeftChar=1
 [Editors]
-Order=3,0,24,23,25,26,22,21
-Focused=21
+Order=3,0,24,23,25,26,22
+Focused=0
 [Editor_3]
 CursorCol=23
 CursorRow=23

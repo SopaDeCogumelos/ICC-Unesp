@@ -165,11 +165,11 @@ int tarefasMain(void){
 		CBRAN	"        Selecione a tarefa a ser executada"			"\n"
 		CAZUL	"===================================================="	"\n"
 		CBRAN	" A- Tarefa 1 - 	Trocar 2 números inteiros"			"\n"
-			" B- Tarefa 2 - 	Calcula a raiz quinta"				"\n"
-			" C- Tarefa 3 - 	Le x e retorna f(x)"				"\n"
-			" D- Tarefa 4 - 	Organiza 3 valores"					"\n"
-			" E- Tarefa 5 - 	Ler numero e somar digitos"			"\n"
-			" 0- Voltar para menu anterior"									"\n"
+				" B- Tarefa 2 - 	Calcula a raiz quinta"				"\n"
+				" C- Tarefa 3 - 	Le x e retorna f(x)"				"\n"
+				" D- Tarefa 4 - 	Organiza 3 valores"					"\n"
+				" E- Tarefa 5 - 	Ler numero e somar digitos"			"\n"
+				" 0- Voltar para menu anterior"							"\n"
 		CAZUL	"===================================================="	"\n"
 		RESET);
 		
