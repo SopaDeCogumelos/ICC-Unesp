@@ -187,7 +187,7 @@ int tarefasMain(void){
 		
 		/* Espera input do usuario antes de resetar o loop */
 		printf("\nPressione qualquer tecla para continuar...\n");
-		gets(&select); gets(&select);
+		getch();
 		printf(LIMPA); // <-- Limpa a tela
 	}
 	/* FIM do Loop do Menu */

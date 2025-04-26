@@ -17,7 +17,7 @@ int main(void) {
 	*	i8_userInput	-> variavel para seleção de programa
 	*/
 	uint8_t 	ui8_errorHandle 		= 0;
-	uint8_t* 	p_ui8_errorHandle 	= &ui8_errorHandle;
+	uint8_t* 	p_ui8_errorHandle 		= &ui8_errorHandle;
 	uint8_t 	i8_userInput 			= 0;
 	
 	/* Define idioma escrito para PT-Br */
@@ -64,7 +64,7 @@ int main(void) {
 		if (i8_userInput == 13) 	ui8_errorHandle = modoLSD();
 
 		printf("\nPressione qualquer tecla para continuar...\n");
-		p_ui8_errorHandle = gets(&i8_userInput);
+		ui8_errorHandle = getch();
 		printf(LIMPA);
 	}
 	

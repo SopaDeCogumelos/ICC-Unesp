@@ -1,6 +1,9 @@
 #ifndef	CONSOLEFORMAT_H
 #define CONSOLEFORMAT_H
 
+/* Inclui o conio.h para comandos de MS-DOS */
+#include <conio.h>
+
 /* Seção que define macros para formatação de texto do terminal
 *	RESET	-> Remove formatação
 *	BOLD	-> Negrito
