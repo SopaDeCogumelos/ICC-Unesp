@@ -39,7 +39,6 @@ int main(void) {
 	
 	/*	BEGIN Localizacao pt-BR */
     #ifdef _WIN32
-    //SetConsoleOutputCP(CP_UTF8);
     if (setlocale(LC_CTYPE, "Portuguese_Brazil") == NULL) {
         fprintf(stderr, "Falha ao definir locale Portuguese_Brazil\n");
         return EXIT_FAILURE;
