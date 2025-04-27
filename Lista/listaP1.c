@@ -10,37 +10,16 @@
 
 /*	BEGIN Includes das minhas bibliotecas */
 #include "esc_csi_codes.h"
+#include "exercicio1.h"
 /*	END Includes das minhas bibliotecas */
-
-/*	BEGIN Definine Lightweight getch() */ 
-#ifdef _WIN32
-#include <conio.h>
-#include <windows.h>
-#define GETCH _getch
-#else
-#include <termios.h>
-#include <unistd.h>
-char GETCH(void) {
-    struct termios oldTerminal, newTerminal;
-    char ch;
-    tcgetattr(STDIN_FILENO, &oldTerminal);
-    newTerminal = oldTerminal;
-    newTerminal.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newTerminal);
-    ch = getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminal);
-    return ch;
-}
-#endif
-/*	END Define Lightweight getch() */ 
 
 /*	BEGIN main() */
 int main(void) {
 	
 	/*	BEGIN Localizacao pt-BR */
     #ifdef _WIN32
-    if (setlocale(LC_CTYPE, "Portuguese_Brazil") == NULL) {
-        fprintf(stderr, "Falha ao definir locale Portuguese_Brazil\n");
+    if (setlocale(LC_CTYPE, "Portuguese_Brazil.1252") == NULL) {
+        fprintf(stderr, "Falha ao definir locale Portuguese_Brazil.1252\n");
         return EXIT_FAILURE;
     }
     #else
@@ -54,7 +33,7 @@ int main(void) {
 	/*	BEGIN Variaveis main() */
 	int 	option,
 			scan_result;
-	/* END Variavei main() */
+	/* END Variaveis main() */
 	
 	/* BEGIN main loop */
 	while (1){
@@ -89,7 +68,8 @@ int main(void) {
         if (scan_result == 0) {
             ANSI_CURSOR_POS(5, 1);
             fprintf(stderr, FG_RED "ERRO: " RESET "Valor inválido!\n");
-            while ((getchar()) != '\n' && getchar() != EOF);	//Limpar buffer
+            int ch;
+			while ((ch = getchar()) != '\n' && ch != EOF);	//Limpar buffer
         } else {     	
 			/* BEGIN Seletor do Menu */
             printf(eraseDisplay);
@@ -97,17 +77,17 @@ int main(void) {
             if (option == 0) {
                 printf("Saindo do programa...\n");
                 break;
-            }
-            //if (option == 1)	ex1();
-            
-            ANSI_CURSOR_POS(5, 1);
-            printf(FG_RED "Opção inválida: %d\n" RESET, option);
+            } else if (option == 1){
+            	exercicio1();
+			} else {
+	            ANSI_CURSOR_POS(5, 1);
+	            printf(FG_RED "Opção inválida: %d\n" RESET, option);
+	        }
             /* END Seletor do Menu */
         }
         /*	END Testes do scanf */
 		
-		ANSI_CURSOR_POS(7, 1);
-		printf("Pressione qualquer tecla para continuar...\n");
+		printf("\nPressione qualquer tecla para continuar...\n");
 		fflush(stdout);
 		GETCH();
 	}
