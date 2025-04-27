@@ -11,8 +11,8 @@
 #define RESET	SGR(0)
 #define BOLD	SGR(1)
 #define ITALIC	SGR(3)
-#define FGC(c)	SGR(38;5;(c))
-#define BGC(c)	SGR(48;5;(c))
+#define FGC(c)	SGR(38;5;c)
+#define BGC(c)	SGR(48;5;c)
 
 #define FG_BLACK            FGC(0)
 #define FG_RED              FGC(1)

@@ -1,6 +1,5 @@
 /*
  *	Arquivo fonte principal
- *
 */
 
 /*	BEGIN Includes da Biblioteca Padrao */
@@ -33,43 +32,54 @@ char GETCH(void) {
     return ch;
 }
 #endif
-/*	END Definine Lightweight getch() */ 
+/*	END Define Lightweight getch() */ 
 
 /*	BEGIN main() */
 int main(void) {
 	
-	// Muda a localização para pt-BR
+	/*	BEGIN Localizacao pt-BR */
     #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);
-    if (setlocale(LC_CTYPE, "pt-BR") == NULL) {
-        fprintf(stderr, "Falha ao definir locale pt-BR\n");
+    //SetConsoleOutputCP(CP_UTF8);
+    if (setlocale(LC_CTYPE, "Portuguese_Brazil") == NULL) {
+        fprintf(stderr, "Falha ao definir locale Portuguese_Brazil\n");
+        return EXIT_FAILURE;
     }
     #else
     if (setlocale(LC_CTYPE, "pt_BR.UTF-8") == NULL) {
         fprintf(stderr, "Falha ao definir locale pt_BR.UTF-8\n");
+        return EXIT_FAILURE;
     }
     #endif
+    /*	END Localizacao pt-BR */
 	
-	char 	option,
+	/*	BEGIN Variaveis main() */
+	int 	option,
 			scan_result;
+	/* END Variavei main() */
 	
 	/* BEGIN main loop */
-	while (1){		
+	while (1){
+	
+		//Reset variaveis		
 		option = 0;
 		scan_result = 0;
 		
+		/*	BEGIN print menu */
 		printf(eraseDisplay);
 		ANSI_CURSOR_POS(1, 1);
 		printf(
 			FG_BLUE	"==============================" "\n"	RESET
 					" Digite o número do exercicio " "\n"
+			ITALIC	" (0 - Para sair)"				"\n"	RESET
 			FG_BLUE	"==============================" "\n"	RESET
 					"--> "	
 		);
+		/*	END print menu */
 		
 		fflush(stdout);
-		scan_result = scanf("%hhd", &option);
+		scan_result = scanf("%d", &option);
 		
+		/*	BEGIN Testes do scanf */
 		if (scan_result < 0) {
             ANSI_CURSOR_POS(5, 1);
             fprintf(stderr, FG_RED "ERRO: " RESET
@@ -80,25 +90,27 @@ int main(void) {
         if (scan_result == 0) {
             ANSI_CURSOR_POS(5, 1);
             fprintf(stderr, FG_RED "ERRO: " RESET "Valor inválido!\n");
-            while (getchar() != '\n' && getchar() != EOF);	//Limpar buffer
-        } else {
+            while ((getchar()) != '\n' && getchar() != EOF);	//Limpar buffer
+        } else {     	
+			/* BEGIN Seletor do Menu */
             printf(eraseDisplay);
             
             if (option == 0) {
                 printf("Saindo do programa...\n");
                 break;
             }
-            if (option == 1)	ex1();
+            //if (option == 1)	ex1();
             
             ANSI_CURSOR_POS(5, 1);
             printf(FG_RED "Opção inválida: %d\n" RESET, option);
+            /* END Seletor do Menu */
         }
+        /*	END Testes do scanf */
 		
 		ANSI_CURSOR_POS(7, 1);
 		printf("Pressione qualquer tecla para continuar...\n");
 		fflush(stdout);
 		GETCH();
-		option = 0;
 	}
 	/*	END main loop */
 	
