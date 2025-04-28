@@ -6,6 +6,7 @@
 /* BEGIN Includes Padrão */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <locale.h>
 /* END Includes Padrão */
 
@@ -88,13 +89,10 @@ char GETCH(void) {
 /* END Define Lightweight getch() */ 
 
 /* BEGIN Typedefs */
-typedef struct Scan{
-	int	value;
-	int	error;
-	int*	pError;
-}scan_t;
+
 /* END Typedefs */
 
+// Luis Felipe Marcon Brunhara
 int main(void) {
 	/* BEGIN Localizacao pt-BR */
 	#ifdef _WIN32
@@ -111,15 +109,49 @@ int main(void) {
 	/* END Localizacao pt-BR */
 	
 	/* BEGIN Variaveis main */
-	
+	int	op=0,
+		A, B, C, D, K, T;
+	float	x, xp, w;
 	/* END Variaveis main */
 	
 	/* BEGIN main loop */
-	while (1){
+	while (op == 0)
+	{
+		printf("Digite quatro valores:\n");
+		scanf("%d %d %d %d", &A, &B, &C, &D);
+		K=1;
+		while (K!=0)
+		{
+			K=0;
+			if (A>B)
+			{
+				T=A; A=B; B=T; K=1;	
+			}	
+			if (B>C)
+			{
+				T=B; B=C; C=T; K=1;
+			}
+			if (C>D)
+			{
+				T=C; C=D; D=T; K=1;
+			}
+		}
+		printf("%d %d %d %d\n", A, B, C, D);
+		x=1; xp=1;
+		while (x<=A)
+		{
+			xp=xp*x; x++;
+		}
+		w = pow(D, (1.0/5.0));
+		printf(
+			"%d %f\n"
+			"%d %f\n"
+			"Repetir? 0-Sim\n",
+			A, xp, D, w
+		);
+		scanf("%d", &op);
 		
-		printf("\nPressione qualquer tecla para continuar...\n");
-		fflush(stdout);
-		GETCH();
+		printf(eraseDisplay);
 	}
 	/* END main loop*/
     	
