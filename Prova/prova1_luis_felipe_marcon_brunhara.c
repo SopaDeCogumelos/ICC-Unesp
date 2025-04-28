@@ -89,9 +89,9 @@ char GETCH(void) {
 
 /* BEGIN Typedefs */
 typedef struct Scan{
-	int	value
-	int	error
-	int*	pError
+	int	value;
+	int	error;
+	int*	pError;
 }scan_t;
 /* END Typedefs */
 
