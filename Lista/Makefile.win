@@ -1,9 +1,14 @@
+<<<<<<< Updated upstream
 # Project: ListaP1
+=======
+# Project: Project2
+>>>>>>> Stashed changes
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
+<<<<<<< Updated upstream
 OBJ      = listaP1.o exercicio1.o
 LINKOBJ  = listaP1.o exercicio1.o
 LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW64/lib" -L"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
@@ -12,6 +17,16 @@ CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-
 BIN      = ListaP1.exe
 CXXFLAGS = $(CXXINCS) -g3 -std=c11 -lncurses
 CFLAGS   = $(INCS) -g3 -std=c11 -lncurses
+=======
+OBJ      = meida_3.o
+LINKOBJ  = meida_3.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = PROG1.exe
+CXXFLAGS = $(CXXINCS) -std=c11
+CFLAGS   = $(INCS) -std=c11
+>>>>>>> Stashed changes
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -24,8 +39,13 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
+<<<<<<< Updated upstream
 listaP1.o: listaP1.c
 	$(CC) -c listaP1.c -o listaP1.o $(CFLAGS)
 
 exercicio1.o: exercicio1.c
 	$(CC) -c exercicio1.c -o exercicio1.o $(CFLAGS)
+=======
+meida_3.o: meida_3.c
+	$(CC) -c meida_3.c -o meida_3.o $(CFLAGS)
+>>>>>>> Stashed changes
