@@ -3,5 +3,7 @@
 
 int parNoVetor(void);
 int notasMedia(void);
+int organizeCrescente(void);
+int ler_matriz_op(void);
 
 #endif

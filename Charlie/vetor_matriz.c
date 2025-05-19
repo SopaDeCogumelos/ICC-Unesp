@@ -17,15 +17,16 @@ int parNoVetor(void) {
     int *pares = NULL;    // Vetor para números pares
     int *impares = NULL;  // Vetor para números ímpares
     int tamanho, numPares = 0, numImpares = 0;
-
+    char ch_buf;
+	
     // Solicita o tamanho do vetor
     printf("Digite o tamanho do vetor: ");
+    while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
     if (scanf("%d", &tamanho) != 1 || tamanho <= 0) {
         printf("Tamanho inválido!\n");
         while (getchar() != '\n'); // Limpa buffer
         return 1; // Erro
     }
-    while (getchar() != '\n'); // Limpa buffer
 
     // Aloca vetor principal
     vetor = (int *)malloc(tamanho * sizeof(int));
@@ -37,6 +38,7 @@ int parNoVetor(void) {
     // Lê os números e conta pares/ímpares
     printf("Digite %d números inteiros:\n", tamanho);
     for (int i = 0; i < tamanho; i++) {
+    	while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
         if (scanf("%d", &vetor[i]) != 1) {
             printf("Entrada inválida!\n");
             free(vetor);
@@ -49,7 +51,6 @@ int parNoVetor(void) {
             numImpares++;
         }
     }
-    while (getchar() != '\n'); // Limpa buffer
 
     // Aloca vetores para pares e ímpares
     if (numPares > 0) {
@@ -121,19 +122,18 @@ int notasMedia(void){
     int **notas = NULL;
     int numAlunos;
     int i, j, k; // Declarar variáveis de loop no início ou dentro do escopo do loop (C99+)
+    char ch_buf;
 
     // Solicita quantidade de alunos
     printf("Digite a quantidade de alunos: ");
     if (scanf("%d", &numAlunos) != 1 || numAlunos <= 0) {
         printf("Quantidade inválida!\n");
         // Limpa o buffer de entrada para remover caracteres inválidos
-        int ch;
-        while ((ch = getchar()) != '\n' && ch != EOF);
+        while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
         return 1; // Código de erro
     }
     // Limpa o caractere de nova linha ('\n') deixado pelo scanf no buffer
-    int ch_clear; // Variável separada para evitar conflito se 'ch' for usado posteriormente
-    while ((ch_clear = getchar()) != '\n' && ch_clear != EOF);
+    while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
 
     // Aloca memória para as linhas (um ponteiro para cada aluno)
     notas = (int **)malloc(numAlunos * sizeof(int *));
@@ -178,7 +178,7 @@ int notasMedia(void){
                 free(notas);
                 notas = NULL;
                 // Limpa o buffer de entrada após a falha do scanf
-                while ((ch_clear = getchar()) != '\n' && ch_clear != EOF);
+                while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);
                 return 1; // Código de erro
             }
         }
@@ -190,7 +190,7 @@ int notasMedia(void){
     }
     // Limpa o buffer de entrada uma última vez após todas as notas serem lidas com sucesso.
     // Isso remove o '\n' final deixado pelo último scanf.
-    while ((ch_clear = getchar()) != '\n' && ch_clear != EOF && ch_clear != '\0');
+    while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
 
 
     // Calcular média (divisão inteira)
@@ -232,5 +232,227 @@ int notasMedia(void){
     return 0; // Sucesso	
 }
 /* END notasMedia */
+
+/* BEGIN Ordenar Vetor */
+int organizeCrescente(void){
+	
+	struct Vetor{
+		int size;
+		int* values;
+	}vetor;
+	char ch_buf;
+	
+	// Solicita o tamanho do vetor
+	printf("Digite o tamanho do vetor:\n");
+	if (scanf("%d", &vetor.size) != 1 || vetor.size <= 0) {
+		printf("Tamanho inválido!\n");
+		while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
+		return 1; // Erro
+	}
+	
+	// Aloca vecNum
+	vetor.values = (int *)malloc(vetor.size * sizeof(int));
+	if (vetor.values == NULL) {
+		printf("Erro de alocação de memória!\n");
+		return 1; // Erro
+	}
+	
+	// Lê os números
+	printf("Digite %d números inteiros:\n", vetor.size);
+	for (int i = 0; i < vetor.size; i++) {
+		if (scanf("%d", &vetor.values[i]) != 1) {
+			printf("Entrada inválida!\n");
+			free(vetor.values);
+			while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
+			return 1; // Erro
+		}
+	}
+	
+	// Ordena o vetor
+	for (int i=0; i < vetor.size-1; i++) {
+		for (int j=i+1; j<vetor.size; j++){
+			if (vetor.values[i] > vetor.values[j]){
+				int temp = vetor.values[i];
+				vetor.values[i] = vetor.values[j];
+				vetor.values[j] = temp;
+			}
+		}	
+	}	
+	
+	// Printa vetor organizado
+	printf("O vetor organizado em ordem crescente fica:\n");
+	for (int i=0; i<vetor.size; i++)
+		printf("%d\t", vetor.values[i]);
+	printf("\n");
+	
+	// Libera Memória
+	free(vetor.values);
+	vetor.values = NULL; // Boa prática para evitar ponteiros pendentes (dangling pointers)
+	
+	return 0;
+}
+/* END Ordenar Vetor */
+
+/* BEGIN TypeDefs e global vars */
+char ch_buf;
+
+typedef struct Vetor{
+	int size;
+	int* v;
+} vetor_t;
+	
+typedef struct Matriz_sqr{
+	int size;
+	int** v;
+}matriz_sqrt_t;
+/* END TypeDefs e global vars */
+
+/* BEGIN funcao operador matriz */
+
+// Função para liberar memoria
+void free_matriz(matriz_sqrt_t* matriz){
+	for (int k = 0; k < matriz->size; k++)// Percorre todos os ponteiros de linha
+		free(matriz->v[k]); // free(NULL) é seguro e não faz nada
+	free(matriz->v);
+	matriz->v = NULL;
+	return;
+}
+
+// Função para alocar memoria
+int aloc_matriz(matriz_sqrt_t* matriz){
+	// Aloca memória para as linhas da matriz
+	matriz->v = (int **)malloc(matriz->size * sizeof(int *));
+	if (matriz->v == NULL) {
+		printf("Erro de alocação de memória para as linhas da matriz!\n");
+		return 1; // Código de erro
+	}
+	
+	// Inicializa todos os ponteiros de linha para NULL.
+	// Isso ajuda a simplificar a limpeza em caso de falha na alocação de uma linha específica.
+	for (int i = 0; i < matriz->size; i++)
+		matriz->v[i] = NULL;	
+
+	// Aloca memória para as colunas da matriz
+	for (int i = 0; i < matriz->size; i++) {
+		matriz->v[i] = (int *)malloc(matriz->size * sizeof(int));
+		if (matriz->v[i] == NULL) {
+			printf("Erro na alocação de memória para as colunas da linha %d!\n", i + 1);
+			// Libera toda a memória alocada até agora antes de sair
+			free_matriz(matriz);
+			return 1; // Código de erro
+		}
+	}
+	
+	return 0;
+}
+
+// Função para ler os valores da matriz
+int read_matriz(matriz_sqrt_t* matriz){
+	for (int i = 0; i < matriz->size; i++){
+		printf("Insira os %d valores da linha %d da matriz\n", matriz->size, i+1);
+		for (int j = 0; j < matriz->size; j++){
+			if (scanf("%d", &matriz->v[i][j]) != 1) {
+				printf("Entrada inválida para coluna %d do linha %d!\n", j + 1, i + 1);
+				// Libera toda a memória alocada
+				free_matriz(matriz);
+				// Limpa o buffer de entrada após a falha do scanf
+				while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);
+				return 2; // Código de erro
+			}	
+		}
+	}
+	return 0;
+}
+
+// Função para encontrar diagonal princial
+void find_matriz_dp(matriz_sqrt_t* matriz, vetor_t* vetor){
+	for (int i = 0; i < matriz->size; i++)
+		vetor->v[i] = matriz->v[i][i];
+	return;
+}
+
+// Função para encontrar diagonal secundaria
+void find_matriz_ds(matriz_sqrt_t* matriz, vetor_t* vetor){
+	for (int i = 0; i < matriz->size; i++)
+		vetor->v[i] = matriz->v[i][matriz->size -1 - i];
+	return;
+}
+/* END funcao operador matriz */
+
+/* BEGIN Operação Matriz */
+int ler_matriz_op(void){
+	
+	matriz_sqrt_t matriz_A, matriz_B;
+	vetor_t	diag_p = {0, NULL}, diag_s = {0,NULL};
+	
+	// Solicita o tamanho das matrizes
+	printf("Digite o tamanho das matrizes:\n");
+	if (scanf("%d", &matriz_A.size) != 1 || matriz_A.size <= 0) {
+		printf("Tamanho inválido!\n");
+		while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);	//Limpar buffer
+		return 2; // Erro
+	}
+	
+	// Aloca A
+	if (aloc_matriz(&matriz_A) != 0)
+		return 1;
+	
+	// Aloca B
+	if (aloc_matriz(&matriz_B) != 0)
+		return 1;
+	
+	// Lê os valores da matriz A
+	if (read_matriz(&matriz_A) != 0)
+		return 2;
+	
+	// Imprimir matriz A
+	printf("\nA matriz A é:\n");
+	for (int i = 0; i < matriz_A.size; i++){
+		for (int j = 0; j < matriz_A.size; j++)
+			printf("%d\t", matriz_A.v[i][j]);
+		printf("\n");
+	}
+	
+	// Aloca Vetor diagonal principal
+	diag_p.size = matriz_A.size;
+	diag_p.v = (int *)malloc(diag_p.size * sizeof(int));
+	if (diag_p.v == NULL) {
+		printf("Erro de alocação de memória para o vetor diagonal p!\n");
+		return 1; // Código de erro
+	}
+	
+	// Aloca Vetor diagonal secundaria
+	diag_s.size = matriz_A.size;
+	diag_s.v = (int *)malloc(diag_s.size * sizeof(int));
+	if (diag_s.v == NULL) {
+		printf("Erro de alocação de memória para o vetor diagonal s!\n");
+		return 1; // Código de erro
+	}
+	
+	// Transporta diagonal principal de A para vetor e imprime
+	find_matriz_dp(&matriz_A, &diag_p);
+	printf("\nA diagonal principal de A é:\n");
+	for (int i = 0; i < diag_p.size; i++)
+		printf("%d\t", diag_p.v[i]);
+	printf("\n");
+	
+	// Transporta diagonal secundaria  de A para vetor e imprime
+	find_matriz_ds(&matriz_A, &diag_s);
+	printf("\nA diagonal secundaria de A é:\n");
+	for (int i = 0; i < diag_s.size; i++)
+		printf("%d\t", diag_s.v[i]);
+	printf("\n");
+	
+	// Libera Memória
+	free_matriz(&matriz_A);
+	free_matriz(&matriz_B);
+	free(diag_p.v);
+	diag_p.v = NULL;
+	free(diag_s.v);
+	diag_s.v = NULL;
+	
+	return 0; // Sucesso
+}
+/* END Operação Matriz */
 
 #endif
