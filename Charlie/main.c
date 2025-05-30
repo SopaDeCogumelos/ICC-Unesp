@@ -60,6 +60,7 @@ int main(void) {
 			"2 - Notas e Média de 10 alunos\n"
 			"3 - Organizar em ordem Crescente\n"
 			"4 - Transporta matriz\n"
+			"5 - Determinante de Matriz\n"
 			"0 - Sair\n"
 		FG_BLUE	"=====================\n"RESET
 		);
@@ -99,7 +100,13 @@ int main(void) {
 				printf("Erro ao executar organizar crescente!\n");
 			}
 		}
-		if (menuIn > 4) {
+		if (menuIn == 5) {
+			returnVar = det_matriz();
+			if (returnVar != 0) {
+				printf("Erro ao executar organizar crescente!\n");
+			}
+		}
+		if (menuIn > 5) {
 			printf("Opção inválida!\n");
 		}
 		

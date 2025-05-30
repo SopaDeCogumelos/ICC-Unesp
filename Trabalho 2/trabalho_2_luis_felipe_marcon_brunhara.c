@@ -117,12 +117,12 @@ typedef struct Vetor{
 *		}
 *				
 */
-typedef struct Matriz_2x2{
+typedef struct Matriz_2d{
 	int	l,
 		c;
 	double	v[10][10];
 	int	p;
-}matriz_2x2_t;
+}matriz_2d_t;
 /* END Typedefs */
 
 /* BEGIN Global Vars */
@@ -132,7 +132,7 @@ char 	ch_buf;
 /* BEGIN Functions */
 
 // Funcao de leitura de matriz
-int read_matriz(matriz_2x2_t* matriz){
+int read_matriz(matriz_2d_t* matriz){
 	for (int i = 0; i < matriz->l; i++){
 		printf("Insira %d valores reais para a linha %d\n", matriz->c, i+1);
 		for (int j = 0; j < matriz->c; j++){
@@ -148,7 +148,7 @@ int read_matriz(matriz_2x2_t* matriz){
 }
 
 // Funcao pra teste de quadrado magico
-int test_for_magic_sq(matriz_2x2_t* matriz){
+int test_for_magic_sq(matriz_2d_t* matriz){
 	double	key = 0.0,
 		sum;
 	
@@ -198,7 +198,7 @@ int test_for_magic_sq(matriz_2x2_t* matriz){
 }
 
 // Funcao tranfere soma dos divisores proprios dos valores da matriz origem para matriz destino
-void sum_from_div_matriz_idx(matriz_2x2_t* in, matriz_2x2_t* out){
+void sum_from_div_matriz_idx(matriz_2d_t* in, matriz_2d_t* out){
 	for (int i = 0; i < in->l; i++){
 		for (int j = 0; j < in->c; j++){
 			out->v[i][j] = 0.0;
@@ -219,11 +219,55 @@ void sum_from_div_matriz_idx(matriz_2x2_t* in, matriz_2x2_t* out){
 }
 
 // Funcao que salva na matriz destino o exponencial dos valores da matriz origem
-void exp_from_matriz_idx(matriz_2x2_t* in, matriz_2x2_t* out){
+void exp_from_matriz_idx(matriz_2d_t* in, matriz_2d_t* out){
 	for (int i = 0; i < in->l; i++){
 		for (int j = 0; j < in->c; j++)
 			out->v[i][j] = exp(in->v[i][j]);
 	}	
+}
+
+// Funcao para calcular a determinante
+double det_matriz(matriz_2d_t* matriz){
+	double	det_sing_fac = 1.0;	// Fator de correcao da determinante
+	double	det_u	= 1.0;		// Variavel pra calcular diagonal principal
+	
+	for (int i = 0; i < matriz->l - 1; i++) { // Itera sobre as colunas (pivôs)
+        // Se o pivô for zero, tenta trocar com uma linha abaixo que não tenha zero na mesma coluna
+        if (fabs(matriz->v[i][i]) < EPSILON) {
+            int k = i + 1;
+            while (k < matriz->l && matriz->v[k][i] == 0) {
+                k++;
+            }
+            if (k < matriz->l) { // Encontrou uma linha para trocar
+                for (int j = 0; j < matriz->c; j++) {
+                    double temp = matriz->v[i][j];
+                    matriz->v[i][j] = matriz->v[k][j];
+                    matriz->v[k][j] = temp;
+                }
+                det_k_fac = det_k_fac * -1;
+            } else {
+                // Se todas as linhas abaixo também tiverem zero nesta coluna,
+                // a matriz pode ser singular ou já estar parcialmente triangularizada.
+                continue; // Pula para a próxima iteração do pivô
+            }
+        }
+
+
+        for (int j = i + 1; j < matriz->l; j++) { // Itera sobre as linhas abaixo do pivô
+            if (fabs(matriz->v[i][i]) < EPSILON) { 
+                continue;
+            }
+            double fator = matriz->v[j][i] / matriz->v[i][i];
+            for (int k = i; k < matriz->c; k++) { // Itera sobre os elementos da linha j
+                matriz->v[j][k] = matriz->v[j][k] - fator * matriz->v[i][k];
+            }
+        }
+    }
+    
+    for (int i = 0; i < matriz->c; i++)
+    	det_u = det_u * matriz->v[i][i];
+	
+	return	(det_u * det_sing_fac);
 }
 /* END Functions */
 
@@ -244,7 +288,7 @@ int main(void) {
 	/* END Localizacao pt-BR */
 	
 	/* BEGIN Variaveis main */
-	matriz_2x2_t matriz_A, matriz_B, matriz_C;
+	matriz_2d_t matriz_A, matriz_B, matriz_C;
 	/* END Variaveis main */
 	
 	/* BEGIN main block 0 */
@@ -339,6 +383,12 @@ int main(void) {
 				printf("\n");
 			}
 			/* END print matriz C */
+			
+			/* BEGIN Determinante */
+			if (matriz_A.p & (1<<0)){
+				printf("\nA determinante de A é %0.2lf\n", det_matriz(&matriz_A));
+			}
+			/* END Determinante */
 		}
 		
 		printf("\nPressione qualquer tecla para continuar...\n");

@@ -11,6 +11,92 @@
 #define INDICE_MEDIA NUM_NOTAS // O índice onde a média será armazenada
 #define NUM_COLUNAS (NUM_NOTAS + 1) // Número total de colunas (notas + média)
 
+/* BEGIN TypeDefs e global vars */
+char ch_buf;
+
+typedef struct Vetor{
+	int size;
+	int* v;
+} vetor_t;
+	
+typedef struct Matriz_sqr{
+	int size;
+	int** v;
+}matriz_sqrt_t;
+/* END TypeDefs e global vars */
+
+/* BEGIN funcao operador matriz */
+
+// Função para liberar memoria
+void free_matriz(matriz_sqrt_t* matriz){
+	for (int k = 0; k < matriz->size; k++)// Percorre todos os ponteiros de linha
+		free(matriz->v[k]); // free(NULL) é seguro e não faz nada
+	free(matriz->v);
+	matriz->v = NULL;
+	return;
+}
+
+// Função para alocar memoria
+int aloc_matriz(matriz_sqrt_t* matriz){
+	// Aloca memória para as linhas da matriz
+	matriz->v = (int **)malloc(matriz->size * sizeof(int *));
+	if (matriz->v == NULL) {
+		printf("Erro de alocação de memória para as linhas da matriz!\n");
+		return 1; // Código de erro
+	}
+	
+	// Inicializa todos os ponteiros de linha para NULL.
+	// Isso ajuda a simplificar a limpeza em caso de falha na alocação de uma linha específica.
+	for (int i = 0; i < matriz->size; i++)
+		matriz->v[i] = NULL;	
+
+	// Aloca memória para as colunas da matriz
+	for (int i = 0; i < matriz->size; i++) {
+		matriz->v[i] = (int *)malloc(matriz->size * sizeof(int));
+		if (matriz->v[i] == NULL) {
+			printf("Erro na alocação de memória para as colunas da linha %d!\n", i + 1);
+			// Libera toda a memória alocada até agora antes de sair
+			free_matriz(matriz);
+			return 1; // Código de erro
+		}
+	}
+	
+	return 0;
+}
+
+// Função para ler os valores da matriz
+int read_matriz(matriz_sqrt_t* matriz){
+	for (int i = 0; i < matriz->size; i++){
+		printf("Insira os %d valores da linha %d da matriz\n", matriz->size, i+1);
+		for (int j = 0; j < matriz->size; j++){
+			if (scanf("%d", &matriz->v[i][j]) != 1) {
+				printf("Entrada inválida para coluna %d do linha %d!\n", j + 1, i + 1);
+				// Libera toda a memória alocada
+				free_matriz(matriz);
+				// Limpa o buffer de entrada após a falha do scanf
+				while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);
+				return 2; // Código de erro
+			}	
+		}
+	}
+	return 0;
+}
+
+// Função para encontrar diagonal princial
+void find_matriz_dp(matriz_sqrt_t* matriz, vetor_t* vetor){
+	for (int i = 0; i < matriz->size; i++)
+		vetor->v[i] = matriz->v[i][i];
+	return;
+}
+
+// Função para encontrar diagonal secundaria
+void find_matriz_ds(matriz_sqrt_t* matriz, vetor_t* vetor){
+	for (int i = 0; i < matriz->size; i++)
+		vetor->v[i] = matriz->v[i][matriz->size -1 - i];
+	return;
+}
+/* END funcao operador matriz */
+
 /* BEGIN parNoVetor */
 int parNoVetor(void) {
     int *vetor = NULL;    // Vetor principal
@@ -293,92 +379,6 @@ int organizeCrescente(void){
 }
 /* END Ordenar Vetor */
 
-/* BEGIN TypeDefs e global vars */
-char ch_buf;
-
-typedef struct Vetor{
-	int size;
-	int* v;
-} vetor_t;
-	
-typedef struct Matriz_sqr{
-	int size;
-	int** v;
-}matriz_sqrt_t;
-/* END TypeDefs e global vars */
-
-/* BEGIN funcao operador matriz */
-
-// Função para liberar memoria
-void free_matriz(matriz_sqrt_t* matriz){
-	for (int k = 0; k < matriz->size; k++)// Percorre todos os ponteiros de linha
-		free(matriz->v[k]); // free(NULL) é seguro e não faz nada
-	free(matriz->v);
-	matriz->v = NULL;
-	return;
-}
-
-// Função para alocar memoria
-int aloc_matriz(matriz_sqrt_t* matriz){
-	// Aloca memória para as linhas da matriz
-	matriz->v = (int **)malloc(matriz->size * sizeof(int *));
-	if (matriz->v == NULL) {
-		printf("Erro de alocação de memória para as linhas da matriz!\n");
-		return 1; // Código de erro
-	}
-	
-	// Inicializa todos os ponteiros de linha para NULL.
-	// Isso ajuda a simplificar a limpeza em caso de falha na alocação de uma linha específica.
-	for (int i = 0; i < matriz->size; i++)
-		matriz->v[i] = NULL;	
-
-	// Aloca memória para as colunas da matriz
-	for (int i = 0; i < matriz->size; i++) {
-		matriz->v[i] = (int *)malloc(matriz->size * sizeof(int));
-		if (matriz->v[i] == NULL) {
-			printf("Erro na alocação de memória para as colunas da linha %d!\n", i + 1);
-			// Libera toda a memória alocada até agora antes de sair
-			free_matriz(matriz);
-			return 1; // Código de erro
-		}
-	}
-	
-	return 0;
-}
-
-// Função para ler os valores da matriz
-int read_matriz(matriz_sqrt_t* matriz){
-	for (int i = 0; i < matriz->size; i++){
-		printf("Insira os %d valores da linha %d da matriz\n", matriz->size, i+1);
-		for (int j = 0; j < matriz->size; j++){
-			if (scanf("%d", &matriz->v[i][j]) != 1) {
-				printf("Entrada inválida para coluna %d do linha %d!\n", j + 1, i + 1);
-				// Libera toda a memória alocada
-				free_matriz(matriz);
-				// Limpa o buffer de entrada após a falha do scanf
-				while ((ch_buf = getchar()) != '\n' && ch_buf != EOF);
-				return 2; // Código de erro
-			}	
-		}
-	}
-	return 0;
-}
-
-// Função para encontrar diagonal princial
-void find_matriz_dp(matriz_sqrt_t* matriz, vetor_t* vetor){
-	for (int i = 0; i < matriz->size; i++)
-		vetor->v[i] = matriz->v[i][i];
-	return;
-}
-
-// Função para encontrar diagonal secundaria
-void find_matriz_ds(matriz_sqrt_t* matriz, vetor_t* vetor){
-	for (int i = 0; i < matriz->size; i++)
-		vetor->v[i] = matriz->v[i][matriz->size -1 - i];
-	return;
-}
-/* END funcao operador matriz */
-
 /* BEGIN Operação Matriz */
 int ler_matriz_op(void){
 	
@@ -454,5 +454,16 @@ int ler_matriz_op(void){
 	return 0; // Sucesso
 }
 /* END Operação Matriz */
+
+/* BEGIN Determinante da Matriz */
+int det_matriz(void){
+	
+	matriz_quad_t matriz_A;
+	
+	
+	return 0;
+}
+/* END Determinante da Matriz*/
+
 
 #endif
