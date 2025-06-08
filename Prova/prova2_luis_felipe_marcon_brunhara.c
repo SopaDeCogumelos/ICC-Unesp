@@ -37,7 +37,7 @@
 #define FG_BRIGHT_RED 		FGC(9)
 #define FG_BRIGHT_GREEN 	FGC(10)
 #define FG_BRIGHT_YELLOW 	FGC(11)
-#define FG_BRIGHT_BLUE F	GC(12)
+#define FG_BRIGHT_BLUE 		FGC(12)
 #define FG_BRIGHT_MAGENTA 	FGC(13)
 #define FG_BRIGHT_CYAN 		FGC(14)
 #define FG_BRIGHT_WHITE 	FGC(15)
@@ -147,9 +147,9 @@ int read_matriz(matriz_2d_t* matriz){
 */
 void test_for_matriz_sq(matriz_2d_t* matriz){
 	if (matriz->c == matriz->l)
-		matriz->p = matriz->p | (1<<0);
+		matriz->p = matriz->p | (1 << 0);
 	else
-		matriz->p = matriz->p & (0<<0);
+		matriz->p = matriz->p & ~(1 << 0);
 	return;
 }
 
@@ -211,7 +211,7 @@ int bloco_2(matriz_2d_t* A, vetor_t* V){
 }
 
 /*
-	Funcao para o Bloco 4 - Matriz C = cos dos valores de A convertidos para radianos
+	Funcao para o Bloco 3 - Matriz C = cos dos valores de A convertidos para radianos
 	A, C	-> Os dois argumentos de entrada são ponteiros para o tipo matriz_2d_t
 	return	-> O argumento de saida é somente para saber se a função foi executada até o fim
 */
@@ -234,6 +234,12 @@ int bloco_3(matriz_2d_t* A, matriz_2d_t* C){
 	return 0;
 }
 
+
+/*
+	Funcao para o Bloco 4 - Verifica de a matriz é uma matriz identidade
+	A		-> Argumento de entrada é um ponteiro para o tipo matriz_2d_t
+	return	-> O argumento de saida é somente para saber se a função foi executada até o fim
+*/
 int bloco_4(matriz_2d_t* A){
 	if (!(A->p>>0) & (1<<0))
 		return 1;
@@ -242,7 +248,7 @@ int bloco_4(matriz_2d_t* A){
 	
 	for (int i = 0; i < A->l; i++){
 		for (int j = 0; j < A->c; j++){
-			if ((j = i) && (A->v[i][j]-1 > EPSILON)){
+			if ((j == i) && (fabs(A->v[i][j] - 1) > EPSILON)){
 				is_identidade = 0;
 				break;	
 			} else if (A->v[i][j] > EPSILON){
@@ -295,7 +301,7 @@ int main(void) {
 		GETCH();
 		return 0;
 	}
-	if ((matriz_A.l >= 10)||(matriz_A.l >= 10)){
+	if (matriz_A.l > 10 || matriz_A.c > 10 || matriz_A.l <= 0 || matriz_A.c <= 0){
 		printf("Tamanho inválido!\n");
 		printf("\nPressione qualquer tecla para continuar...\n");
 		GETCH();
@@ -348,7 +354,7 @@ int main(void) {
 			returnVar = bloco_2(&matriz_A, &vetor_d);
 			if (returnVar != 0) {
 				printf("Erro ao processar Bloco 2!\n");
-				if (returnVar = 1)
+				if (returnVar == 1)
 					printf("A matriz não é quadrada!\n");	
 			}
 		}
