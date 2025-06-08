@@ -141,6 +141,10 @@ int read_matriz(matriz_2d_t* matriz){
 	return 0;
 }
 
+/*
+	Funcao para testar se a matriz é quadrada
+	matriz	-> Argumento de entrada é um ponteiro para o tipo matriz_2d_t
+*/
 void test_for_matriz_sq(matriz_2d_t* matriz){
 	if (matriz->c == matriz->l)
 		matriz->p = matriz->p | (1<<0);
@@ -149,6 +153,11 @@ void test_for_matriz_sq(matriz_2d_t* matriz){
 	return;
 }
 
+/*
+	Funcao para o Bloco 1 - Matriz B = raiz3 dos valores de A
+	A, B	-> Os dois argumentos de entrada são ponteiros para o tipo matriz_2d_t
+	return	-> O argumento de saida é somente para saber se a função foi executada até o fim
+*/
 int bloco_1(matriz_2d_t* A, matriz_2d_t* B){
 	B->c = A->c;
 	B->l = A->l;
@@ -166,23 +175,33 @@ int bloco_1(matriz_2d_t* A, matriz_2d_t* B){
 	return 0;
 }
 
+/*
+	Funcao para o Bloco 2 - Matriz B = Tranferir valores nao nulos das diagonais da matriz para um vetor
+	A		-> Argumento de entrada é um ponteiro para o tipo matriz_2d_t
+	V		-> Ponteiro para o tipo Vetor que irá receber os valores das diagonais
+	return	-> O argumento de saida é somente para saber se a funcao foi executada até o fim
+*/
 int bloco_2(matriz_2d_t* A, vetor_t* V){
 	if (!(A->p>>0) & (1<<0))
 		return 1;
 		
 	V->s = 0;
 	
+	// Loop externo indexa as diagonais
 	for (int i = 0; i < A->l; i++){
+		// O primeiro if é para testar a diagonal principal
 		if (A->v[i][i] > EPSILON){
 			V->v[V->s] = A->v[i][i];
 			V->s++;
 		}
+		// O segundo if é para a diagonal secundaria
 		if (A->v[i][A->c - i - 1] > EPSILON){
 			V->v[V->s] = A->v[i][A->c - i - 1];
 			V->s++;
 		}	
 	}
 
+	// Imprime o Vetor Resultante
 	printf("O vetor V das diagonais de A é:\n");
 	for (int i = 0; i < V->s; i++){
 		printf("%0.2lf\t", V->v[i]);
@@ -191,6 +210,11 @@ int bloco_2(matriz_2d_t* A, vetor_t* V){
 	return 0;
 }
 
+/*
+	Funcao para o Bloco 4 - Matriz C = cos dos valores de A convertidos para radianos
+	A, C	-> Os dois argumentos de entrada são ponteiros para o tipo matriz_2d_t
+	return	-> O argumento de saida é somente para saber se a função foi executada até o fim
+*/
 int bloco_3(matriz_2d_t* A, matriz_2d_t* C){
 	C->c = A->c;
 	C->l = A->l;
